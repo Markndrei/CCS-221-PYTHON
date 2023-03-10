@@ -4,6 +4,13 @@ import cv2
 import matplotlib.pyplot as plt
 import streamlit as st
 
+uploaded_files = st.file_uploader("Choose a CSV file", accept_multiple_files=True)
+for uploaded_file in uploaded_files:
+    bytes_data = uploaded_file.read()
+    st.write("filename:", uploaded_file.name)
+    st.write(bytes_data)
+ 
+int (1) = bytes_data
 i = int(1)
 x = []
 
@@ -17,7 +24,7 @@ def translation():
     
         plt.axis('off')
         plt.imshow(translated_image)
-        st.show(fig)
+        st.pyplot(fig)
         
 def rotation():
         angle = np.radians(10)
@@ -29,7 +36,7 @@ def rotation():
     
         plt.axis('off')
         plt.imshow(rotated_image)
-        st.show(fig)
+        st.pyplot(fig)
   
   
     
@@ -43,7 +50,7 @@ def scaling():
     
         plt.axis('off')
         plt.imshow(scaled_image)
-        st.show(fig)
+        st.pyplot(fig)
     
     
     
@@ -57,7 +64,7 @@ def shear():
     
         plt.axis('off')
         plt.imshow(sheared_image)
-        st.show(fig)
+        st.pyplot(fig)
     
     
     
@@ -71,7 +78,7 @@ def reflection():
     
         plt.axis('off')
         plt.imshow(reflected_image)
-        st.show(fig)
+        st.pyplot(fig)
 
 for i in range(1,4):
         image = cv2.imread(str(i)+".PNG")
