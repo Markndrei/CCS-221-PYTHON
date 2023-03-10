@@ -32,6 +32,7 @@ def rotation():
     
         plt.axis('off')
         plt.imshow(rotated_image)
+        plt.show
         st.pyplot(fig)
   
   
@@ -46,6 +47,7 @@ def scaling():
     
         plt.axis('off')
         plt.imshow(scaled_image)
+         plt.show
         st.pyplot(fig)
     
     
@@ -60,6 +62,7 @@ def shear():
     
         plt.axis('off')
         plt.imshow(sheared_image)
+        plt.show
         st.pyplot(fig)
     
     
@@ -74,6 +77,7 @@ def reflection():
     
         plt.axis('off')
         plt.imshow(reflected_image)
+        plt.show
         st.pyplot(fig)
 
 for i in range(1,4):
