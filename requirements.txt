@@ -1,8 +1,8 @@
-streamlit
-matplotlib
-numpy
-tensorflow
-opencv-python-headless
+import streamlit as st
+import matplotlib as plt
+import numpy as np
+import tensorflow as tf
+import opencv-python-headless as cv
 
 
 
