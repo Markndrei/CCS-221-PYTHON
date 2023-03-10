@@ -10,7 +10,7 @@ for uploaded_file in uploaded_files:
     st.write("filename:", uploaded_file.name)
     st.write(bytes_data)
  
-int (1) = bytes_data
+i = bytes_data
 i = int(1)
 x = []
 
