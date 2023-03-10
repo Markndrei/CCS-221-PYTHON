@@ -16,21 +16,31 @@ def translation(image, x, y):
         plt.imshow(translated_image)
         plt.show()
         st.pyplot (translated_image)
-        
+
+def image_ups ():
+        image = st.file_upload ("Upload Image", type=['PNG'])
         
 def main ():
     st.title ("Activity 3: Image Manipulator")
     Manipulation = ["Translation", "Rotation", "Scaling", "Shear", "Reflection"]
     choice = st.sidebar.selectbox("Manipulation", Manipulation)
     
+     
+    
     if choice == "Translation" :
-        st.subheader ("Translation")
+        st.subheader ("Images Translation")
+
+        x = st.slider('X1', 0, 1000)
+        st.write('The value of X1: ', x)
+
+        y = st.slider('Y1',0, 1000)
+        st.write('Value of Y1: ', y)
         for i in range(1,4):
             image = cv2.imread(str(i)+".PNG")
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             cols, rows, dims = image.shape
         
-            translation ()
+            translation (image x, y)
 
     if choice == "Rotation" :
         st.subheader ("Rotation")
