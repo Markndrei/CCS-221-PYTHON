@@ -9,10 +9,9 @@ for uploaded_file in uploaded_files:
     bytes_data = uploaded_file.read()
     st.write("filename:", uploaded_file.name)
     st.write(bytes_data)
- 
-i = bytes_data
-i = int(1)
-x = []
+    i = bytes_data
+    i = int(1)
+    x = []
 
 def translation():
         m_translation_ = np.float32([[1, 0, 100],
