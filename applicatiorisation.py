@@ -9,9 +9,6 @@ for uploaded_file in uploaded_files:
     bytes_data = uploaded_file.read()
     st.write("filename:", uploaded_file.name)
     st.write(bytes_data)
-    i = bytes_data
-    i = int(1)
-    x = []
 
 def translation():
         m_translation_ = np.float32([[1, 0, 100],
@@ -80,8 +77,8 @@ def reflection():
         st.pyplot(fig)
 
 for i in range(1,4):
-        image = cv2.imread(str(i)+".PNG")
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = cv2.imread(uploaded_files)
+        image = cv2.cvtColor(uploaded_files, cv2.COLOR_BGR2RGB)
         cols, rows, dims = image.shape
         
         translation ()
