@@ -47,7 +47,7 @@ def scaling():
     
         plt.axis('off')
         plt.imshow(scaled_image)
-         plt.show
+        plt.show
         st.pyplot(fig)
     
     
