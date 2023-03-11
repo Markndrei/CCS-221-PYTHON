@@ -27,25 +27,25 @@ def fill(x, y, replace):
 def main():
    st.title("This is Activity 1")
 
-    x = st.slider('X1',0, 2)
-    st.write('Value of X: ', x)
+   x = st.slider('X1',0, 2)
+   st.write('Value of X: ', x)
     
-    y = st.slider('X1',0, 2)
-    st.write('Value of Y: ', x)
+   y = st.slider('X1',0, 2)
+   st.write('Value of Y: ', x)
     
-    replace = st.slider('X1',0, 1000)
-    st.write('Color: ', replace)
+   replace = st.slider('X1',0, 1000)
+   st.write('Color: ', replace)
     
-    fill (x,y,replace)
+   fill (x,y,replace)
     
     
-    print("X,Y        X,Y       X,Y")
-    print("------------------------")
-    print("0,0        0,1       0,2")
-    print("1,0        1,1       1,2")
-    print("2,0        2,1       2,2")
+   print("X,Y        X,Y       X,Y")
+   print("------------------------")
+   print("0,0        0,1       0,2")
+   print("1,0        1,1       1,2")
+   print("2,0        2,1       2,2")
     
-    print()
+   print()
 
 if __name__ == '__main__':
     main()
