@@ -6,7 +6,7 @@ st.title("Activity3\nGroup6\nImages")
 # Reading of Image
 png = str(".png")
 fig = plt.figure()
-address = str("CCS-221-PYTHON/")
+address = str("")
 
 def translation(i):
     
