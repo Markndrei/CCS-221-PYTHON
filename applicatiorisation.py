@@ -99,16 +99,16 @@ def rotate(option, points):
             
             
 def main():
-option = st.selectbox('What shape would you like to rotate?', ('Cube', 'Pyramid', 'Triangle', 'Diamond'))
+    option = st.selectbox('What shape would you like to rotate?', ('Cube', 'Pyramid', 'Triangle', 'Diamond'))
 
-st.write('The shape you chose is:', option)
+    st.write('The shape you chose is:', option)
 
-if option == "Cube":
-    _cube_(bottom_lower=(0, 0, 0), side_length=3)
-    init_cube_ = _cube_(side_length=3)
-    points = tf.constant(init_cube_, dtype=tf.float32)
-    translate(points)
-    rotate(option, points)
+    if option == "Cube":
+        _cube_(bottom_lower=(0, 0, 0), side_length=3)
+        init_cube_ = _cube_(side_length=3)
+        points = tf.constant(init_cube_, dtype=tf.float32)
+        translate(points)
+        rotate(option, points)
         
         
 if __name__ == '__main__':
