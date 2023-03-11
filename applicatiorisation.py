@@ -50,7 +50,7 @@ def _plt_basic_object(points):
     
 
     plt.show()
-
+    st.pyplot (fig)
 
 
 
@@ -72,7 +72,6 @@ def translate(points):
         translated_shape = session.run(translated_shape) 
 
     _plt_basic_object(translated_shape)
-    st.pyplot (translated_shape)
 
 def rotate(option, points):
     def rotate_obj(points, angle):
@@ -93,7 +92,6 @@ def rotate(option, points):
         if option == "Cube":
             rotated_object = session.run(rotate_obj(init_cube_, 75)) 
             _plt_basic_object(rotated_object)
-            st.pyplot (rotated_object)
             
             
 def main():
