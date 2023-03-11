@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import altair as alt
 
-two_d_arr = np.array([[800, 800, 800],
-                      [800, 800, 800],
-                      [800, 800, 800]])
+two_d_arr = np.array([[1, 0, 1],
+                      [1, 0, 1],
+                      [0, 1, 0]])
     
 x = []
 y = []
