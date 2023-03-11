@@ -170,21 +170,21 @@ def main():
         init_pyramid_ = _pyramid_(side_length=1)
         points = tf.constant(init_pyramid_, dtype=tf.float32)
         translate(points)
-        rotate(x, points)
+        rotate(option, points)
             
     if option == "Rectangle":
         _rectangle_(side_length=3)
         init_pyramid_ = _rectangle_(side_length=3)
         points = tf.constant(init_rectangle_, dtype=tf.float32)
         translate(points)
-        rotate(x, points)
+        rotate(option, points)
             
     if option == "Diamond":
         _diamond_(side_length=1)
         init_pyramid_ = _diamond_(side_length=1)
         points = tf.constant(init_diamond_, dtype=tf.float32)
         translate(points)
-        rotate(x, points)  
+        rotate(option, points)  
         
 if __name__ == '__main__':
     main()
