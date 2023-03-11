@@ -65,7 +65,7 @@ def translate(points):
 
 
     translation_amount = tf.constant([1, 2, 2], dtype=tf.float32)
-    translated_shape = translate_obj(points, translation_amount)
+    fig,translated_shape = translate_obj(points, translation_amount)
 
 
     with tf.compat.v1.Session() as session:
