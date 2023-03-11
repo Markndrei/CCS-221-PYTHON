@@ -84,10 +84,10 @@ def rotate(option, points):
                         [0, 0, 1]
         ])
 
-        fig,rotate_object = tf.matmul(tf.cast(points, tf.float32), tf.cast(rotation_matrix, tf.float32))
+        rotate_object = tf.matmul(tf.cast(points, tf.float32), tf.cast(rotation_matrix, tf.float32))
         
         return rotate_object
-        st.pyplot (fig)
+        st.pyplot (rotate_object)
         
         
     with tf.compat.v1.Session() as session:
