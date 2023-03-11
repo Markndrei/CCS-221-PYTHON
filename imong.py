@@ -37,15 +37,6 @@ def main():
    st.write('color: ', replace)
     
    fill (x, y, replace)
-    
-    
-   print("X,Y        X,Y       X,Y")
-   print("------------------------")
-   print("0,0        0,1       0,2")
-   print("1,0        1,1       1,2")
-   print("2,0        2,1       2,2")
-    
-   print()
 
-if __name__ == '__main__':
+  if __name__ == '__main__':
     main()
