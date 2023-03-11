@@ -87,7 +87,6 @@ def rotate(option, points):
         rotate_object = tf.matmul(tf.cast(points, tf.float32), tf.cast(rotation_matrix, tf.float32))
         
         return rotate_object
-        st.pyplot (rotate_object)
         
         
     with tf.compat.v1.Session() as session:
@@ -95,7 +94,7 @@ def rotate(option, points):
         if option == "Cube":
             rotated_object = session.run(rotate_obj(init_cube_, 75)) 
             _plt_basic_object(rotated_object)
-
+            st.pyplot (rotated_object)
             
             
 def main():
