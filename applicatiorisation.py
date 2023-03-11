@@ -73,9 +73,6 @@ def translate(points):
 
     _plt_basic_object(translated_shape)
 
-
-
-
 def rotate(x, points):
     def rotate_obj(points, angle):
         angle = float(angle)
@@ -95,15 +92,12 @@ def rotate(x, points):
             rotated_object = session.run(rotate_obj(init_cube_, 75)) 
             _plt_basic_object(rotated_object)
                 
-def choice():
-    print("Cube = 0")
-    print("Pyramid = 1")
-    print("Rectangle = 2")
-    print("Diamond = 3")
-    
-    x = int(input("Enter Shape: "))
-    
-    if x == 0:
+option = st.selectbox('What shape would you like to rotate?',
+    ('Cube', 'Pyramid', 'Triangle', 'Diamond'))
+
+st.write('The shape you chose is:', option)
+
+    if option == "Cube":
         _cube_(bottom_lower=(0, 0, 0), side_length=3)
         init_cube_ = _cube_(side_length=3)
         points = tf.constant(init_cube_, dtype=tf.float32)
