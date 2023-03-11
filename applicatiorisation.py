@@ -99,8 +99,7 @@ def rotate(option, points):
             
             
 def main():
-option = st.selectbox('What shape would you like to rotate?',
-    ('Cube', 'Pyramid', 'Triangle', 'Diamond'))
+option = st.selectbox('What shape would you like to rotate?', ('Cube', 'Pyramid', 'Triangle', 'Diamond'))
 
 st.write('The shape you chose is:', option)
 
