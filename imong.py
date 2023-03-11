@@ -16,11 +16,11 @@ def fill(x, y, replace):
         for j in range(len(two_d_arr[i])):
             two_d_arr[x][y] = replace
             
-    img = plt.imshow(two_d_arr)
+    fill,img = plt.imshow(two_d_arr)
     img.set_clim([1,1000])
     plt.colorbar()
     plt.show()
-    st.pyplot (img)
+    st.pyplot (fill)
     
         
     
@@ -36,7 +36,7 @@ def main():
    replace = st.slider('color',0, 1000)
    st.write('color: ', replace)
     
-   fill (x,y,replace)
+   fill (x, y, replace)
     
     
    print("X,Y        X,Y       X,Y")
