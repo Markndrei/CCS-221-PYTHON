@@ -21,23 +21,25 @@ def fill(x, y, replace):
     img.set_clim([1,1000])
     plt.colorbar()
     plt.show()
-    st.pyplot(img)
     
-        
+
     
 def main():
    st.title("This is Activity 1")
 
-   x = st.slider('y',0, 2)
-   st.write('Value of X: ', x)
+   x = st.sidebar.slider('y',0, 2, 0, 1)
+   st.write('Value of X:', x)
     
-   y = st.slider('x',0, 2)
-   st.write('Value of Y: ', y)
+   y = st.sidebar.slider('x',0, 2, 0, 1)
+   st.write('Value of Y:', y)
     
-   replace = st.slider('color',0, 1000)
-   st.write('color: ', replace)
+   replace = st.sidebar.slider('color',0, 1000, 500)
+   st.write('color:', replace)
     
    fill(x, y, replace)
 
+  
+  
+  
 if __name__ == '__main__':
-   main()
+  main()
