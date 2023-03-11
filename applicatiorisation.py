@@ -73,7 +73,7 @@ def translate(points):
         translated_shape = session.run(translated_shape) 
 
     _plt_basic_object(translated_shape)
-    st.pyplot (fig)
+    st.pyplot (translated_shape)
 
 def rotate(option, points):
     def rotate_obj(points, angle):
