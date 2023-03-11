@@ -180,7 +180,7 @@ def main():
         rotate(x, points)
             
     if option == "Diamond":
-       _diamond_(side_length=1)
+        _diamond_(side_length=1)
         init_pyramid_ = _diamond_(side_length=1)
         points = tf.constant(init_diamond_, dtype=tf.float32)
         translate(points)
