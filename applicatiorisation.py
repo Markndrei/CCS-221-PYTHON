@@ -30,6 +30,52 @@ def _cube_(bottom_lower=(0, 0, 0), side_length=3):
 
 
     return points
+def _pyramid_(side_length=1):
+
+    points = np.vstack([
+            ([[-1, -1, -1],
+                [side_length, -1, -1 ],
+                [side_length, side_length, -1],
+                [-1, side_length, -1],
+                [0, 0 , side_length]])
+    ])        
+         
+    return points
+
+
+
+def _rectangle_(bottom_lower=(0, 0, 0), side_length=2):
+    """Create cube starting from the given bottom-lower point (lowest x, y, z values)"""
+    bottom_lower = np.array(bottom_lower)
+    
+    points = np.vstack([
+        bottom_lower,
+        [side_length, 0, 0],
+        [side_length, 4, 0],
+        [0, 4, 0],
+        [0, 0, 3],
+        [side_length, 0, 3],
+        [side_length, 4, 3],
+        [0, 4, 3]
+    ])   
+    
+    return points
+
+
+
+def _diamond_(side_length=1):
+
+    points = np.vstack([
+                ([[-1, -1, -1],
+                [side_length, -1, -1 ],
+                [side_length, side_length, -1],
+                [-1, side_length, -1],
+                [0, 0 , side_length],
+                [0, 0, -3]
+                ])
+    ])        
+    
+    return points   
 
 def _plt_basic_object(points):
     """Plots a basic object, assuming its convex and not too complex"""
@@ -56,7 +102,9 @@ def _plt_basic_object(points):
 
 
 init_cube_ = _cube_(side_length=3)
-
+init_pyramid_ = _pyramid_(side_length=1)
+init_rectangle_ = _rectangle_(side_length=3)
+init_diamond_ = _diamond_(side_length=1)
 
 def translate(points):
     def translate_obj(points, amount):
@@ -93,9 +141,20 @@ def rotate(option, points):
             rotated_object = session.run(rotate_obj(init_cube_, 75)) 
             _plt_basic_object(rotated_object)
             
+        if option == "Pyramid":
+            rotated_object = session.run(rotate_obj(init_pyramid_, 75)) 
+            _plt_basic_object(rotated_object)
+            
+        if option == "Rectangle":
+            rotated_object = session.run(rotate_obj(init_rectangle_, 75)) 
+            _plt_basic_object(rotated_object)
+            
+        if option == "Diamond":
+            rotated_object = session.run(rotate_obj(init_diamond_, 75)) 
+            _plt_basic_object(rotated_object)        
             
 def main():
-    option = st.selectbox('What shape would you like to rotate?', ('Cube', 'Pyramid', 'Triangle', 'Diamond'))
+    option = st.selectbox('What shape would you like to rotate?', ('Cube', 'Pyramid', 'Rectangle', 'Diamond'))
 
     st.write('The shape you chose is:', option)
 
@@ -106,6 +165,26 @@ def main():
         translate(points)
         rotate(option, points)
         
+    if option == "Pyramid":
+        _pyramid_(side_length=1)
+        init_pyramid_ = _pyramid_(side_length=1)
+        points = tf.constant(init_pyramid_, dtype=tf.float32)
+        translate(points)
+        rotate(x, points)
+            
+    if option == "Rectangle":
+        _rectangle_(side_length=3)
+        init_pyramid_ = _rectangle_(side_length=3)
+        points = tf.constant(init_rectangle_, dtype=tf.float32)
+        translate(points)
+        rotate(x, points)
+            
+    if option == "Diamond":
+       _diamond_(side_length=1)
+        init_pyramid_ = _diamond_(side_length=1)
+        points = tf.constant(init_diamond_, dtype=tf.float32)
+        translate(points)
+        rotate(x, points)  
         
 if __name__ == '__main__':
     main()
