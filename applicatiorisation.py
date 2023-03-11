@@ -1,60 +1,134 @@
-import streamlit as st
 import numpy as np
-import matplotlib as plt
-import cv2
+import matplotlib.pyplot as plt
+import streamlit as st
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+from scipy.spatial import Delaunay
 
-i = int(1)
+import tensorflow as tf
 
-def translation(image, x, y):
-        m_translation_ = np.float32([[1, 0, x],
-                                    [0, 1, y],
-                                    [0, 0, 1]
-                                 ])
-        translated_image = cv2.warpPerspective(image, m_translation_, (cols, rows))
+tf.compat.v1.disable_eager_execution()
+
+x=[]    
+
+def _cube_(bottom_lower=(0, 0, 0), side_length=3):
+    """Create cube starting from the given bottom-lower point (lowest x, y, z values)"""
+    bottom_lower = np.array(bottom_lower)
     
-        plt.axis('off')
-        plt.imshow(translated_image)
-        plt.show()
-        st.pyplot (translated_image)
-
-def image_ups ():
-        image = st.file_upload ("Upload Image", type=['PNG'])
+    points = np.vstack([
+        bottom_lower,
+        bottom_lower + [0, side_length, 0],
+        bottom_lower + [side_length, side_length, 0],
+        bottom_lower + [side_length, 0, 0],
+        bottom_lower + [0, 0, side_length],
+        bottom_lower + [0, side_length, side_length],
+        bottom_lower + [side_length, side_length, side_length],
+        bottom_lower + [side_length, 0, side_length],
+        bottom_lower,
         
-def main ():
-    st.title ("Activity 3: Image Manipulator")
-    Manipulation = ["Translation", "Rotation", "Scaling", "Shear", "Reflection"]
-    choice = st.sidebar.selectbox("Manipulation", Manipulation)
-    
-     
-    
-    if choice == "Translation" :
-        st.subheader ("Images Translation")
+    ])   
 
-        x = st.slider('X1', 0, 1000)
-        st.write('The value of X1: ', x)
 
-        y = st.slider('Y1',0, 1000)
-        st.write('Value of Y1: ', y)
-        for i in range(1,4):
-            image = cv2.imread(str(i)+".PNG")
-            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-            cols, rows, dims = image.shape
+    return points
+
+def _plt_basic_object(points):
+    """Plots a basic object, assuming its convex and not too complex"""
+    
+    tri = Delaunay(points).convex_hull
+    
+    fig = plt.figure(figsize=(8,8))
+    ax = fig.add_subplot(111, projection='3d')
+    S = ax.plot_trisurf(points[:,0], points[:,1],
+                        points[:,2], triangles=tri,
+                        shade=True, cmap=cm.rainbow,
+                        lw=0.5
+                        )
+    
+    ax.set_xlim3d(-5, 5)
+    ax.set_ylim3d(-5, 5)
+    ax.set_zlim3d(-5, 5)
+    
+
+    plt.show()
+
+
+
+
+
+init_cube_ = _cube_(side_length=3)
+
+
+def translate(points):
+    def translate_obj(points, amount):
+        return tf.add(points, amount)
+
+
+    translation_amount = tf.constant([1, 2, 2], dtype=tf.float32)
+    translated_shape = translate_obj(points, translation_amount)
+
+
+    with tf.compat.v1.Session() as session:
+
+        translated_shape = session.run(translated_shape) 
+
+    _plt_basic_object(translated_shape)
+
+
+
+
+def rotate(x, points):
+    def rotate_obj(points, angle):
+        angle = float(angle)
+        rotation_matrix = tf.stack([
+                        [tf.cos(angle), tf.sin(angle), 0],
+                        [-tf.sin(angle), tf.cos(angle), 0],
+                        [0, 0, 1]
+        ])
+
+        rotate_object = tf.matmul(tf.cast(points, tf.float32), tf.cast(rotation_matrix, tf.float32))
         
-            translation (image x, y)
+        return rotate_object
 
-    if choice == "Rotation" :
-        st.subheader ("Rotation")
-                      
-    if choice == "Scaling" :
-        st.subheader ("Scaling")
-                      
-    if choice == "Shear" :
-        st.subheader ("Shear")
-   
-
-    if choice == "Reflection" :
-        st.subheader ("Reflection")
-         
+    with tf.compat.v1.Session() as session:
+            
+        if x == 0:
+            rotated_object = session.run(rotate_obj(init_cube_, 75)) 
+            _plt_basic_object(rotated_object)
+                
+    def choice():
+        print("Cube = 0")
+        print("Pyramid = 1")
+        print("Rectangle = 2")
+        print("Diamond = 3")
     
-if __name__ == '__main__' :
-    main()
+        x = int(input("Enter Shape: "))
+    
+        if x == 0:
+                _cube_(bottom_lower=(0, 0, 0), side_length=3)
+                init_cube_ = _cube_(side_length=3)
+                points = tf.constant(init_cube_, dtype=tf.float32)
+                translate(points)
+                rotate(x, points)
+def main():
+    
+    choice()
+    
+    x = int(input("Again? [1 - Yes, 2 - No]: "))
+    
+    if x == 1:
+        main()
+        
+    else:
+        print("Thank you!")
+        exit()
+    
+        
+    
+if __name__ == '__main__':
+        main()
+
+
+
+
+       
+               
