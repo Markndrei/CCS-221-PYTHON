@@ -27,11 +27,11 @@ def fill(x, y, replace):
 def main():
    st.title("This is Activity 1")
 
-   x = st.slider('X1',0, 2)
+   x = st.slider('X',0, 2)
    st.write('Value of X: ', x)
     
-   y = st.slider('X1',0, 2)
-   st.write('Value of Y: ', x)
+   y = st.slider('Y',0, 2)
+   st.write('Value of Y: ', y)
     
    replace = st.slider('X1',0, 1000)
    st.write('Color: ', replace)
