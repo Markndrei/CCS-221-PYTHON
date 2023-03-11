@@ -9,7 +9,7 @@ import tensorflow as tf
 
 tf.compat.v1.disable_eager_execution()
 
-x=[]    
+option=[]    
 
 def _cube_(bottom_lower=(0, 0, 0), side_length=3):
     """Create cube starting from the given bottom-lower point (lowest x, y, z values)"""
@@ -72,8 +72,9 @@ def translate(points):
         translated_shape = session.run(translated_shape) 
 
     _plt_basic_object(translated_shape)
+    st.pyplot (fig)
 
-def rotate(x, points):
+def rotate(option, points):
     def rotate_obj(points, angle):
         angle = float(angle)
         rotation_matrix = tf.stack([
@@ -82,46 +83,38 @@ def rotate(x, points):
                         [0, 0, 1]
         ])
 
-        rotate_object = tf.matmul(tf.cast(points, tf.float32), tf.cast(rotation_matrix, tf.float32))
+        fig,rotate_object = tf.matmul(tf.cast(points, tf.float32), tf.cast(rotation_matrix, tf.float32))
         
         return rotate_object
-
+         st.pyplot (fig)
+        
+        
     with tf.compat.v1.Session() as session:
             
-        if x == 0:
+        if option == "Cube":
             rotated_object = session.run(rotate_obj(init_cube_, 75)) 
             _plt_basic_object(rotated_object)
-                
+
+            
+            
+def main():
 option = st.selectbox('What shape would you like to rotate?',
     ('Cube', 'Pyramid', 'Triangle', 'Diamond'))
 
 st.write('The shape you chose is:', option)
 
-    if option == "Cube":
-        _cube_(bottom_lower=(0, 0, 0), side_length=3)
-        init_cube_ = _cube_(side_length=3)
-        points = tf.constant(init_cube_, dtype=tf.float32)
-        translate(points)
-        rotate(x, points)
+if option == "Cube":
+    _cube_(bottom_lower=(0, 0, 0), side_length=3)
+    init_cube_ = _cube_(side_length=3)
+    points = tf.constant(init_cube_, dtype=tf.float32)
+    translate(points)
+    rotate(option, points)
         
         
-def main():
-    
-    choice()
-    
-    x = int(input("Again? [1 - Yes, 2 - No]: "))
-    
-    if x == 1:
-        main()
         
-    else:
-        print("Thank you!")
-        exit()
-    
         
-    
 if __name__ == '__main__':
-        main()
+    main()
 
 
 
