@@ -50,7 +50,6 @@ def _plt_basic_object(points):
     
 
     plt.show()
-    st.pyplot (fig)
 
 
 
