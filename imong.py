@@ -1,6 +1,7 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib as plt
 import streamlit as st
+import altair as alt
 
 two_d_arr = np.array([[800, 800, 800],
                       [800, 800, 800],
