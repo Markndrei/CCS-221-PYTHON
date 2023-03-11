@@ -16,9 +16,10 @@ def fill(x, y, replace):
     for i in range(len(two_d_arr)):
         for j in range(len(two_d_arr[i])):
             two_d_arr[x][y] = replace
-            
-    fig, img = plt.imshow(two_d_arr, cmap='rainbow', interpolation='none')
-    fig, img.set_clim([1,1000])
+    
+    fig = plt.figure ()
+    img = plt.imshow(two_d_arr, cmap='rainbow', interpolation='none')
+    img.set_clim([1,1000])
     plt.colorbar()
     plt.show()
     st.pyplot (fig)
