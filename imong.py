@@ -27,7 +27,7 @@ def fill(x, y, replace):
 
     
 def main():
-   st.title("This is Activity 1")
+   st.title("This is Activity 2")
 
    x = st.sidebar.slider('y',0, 2, 0, 1)
    st.write('Value of X:', x)
