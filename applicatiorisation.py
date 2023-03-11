@@ -50,6 +50,7 @@ def _plt_basic_object(points):
     
 
     plt.show()
+    st.pyplot (fig)
 
 
 
@@ -86,7 +87,7 @@ def rotate(option, points):
         fig,rotate_object = tf.matmul(tf.cast(points, tf.float32), tf.cast(rotation_matrix, tf.float32))
         
         return rotate_object
-         st.pyplot (fig)
+        st.pyplot (fig)
         
         
     with tf.compat.v1.Session() as session:
@@ -109,8 +110,6 @@ if option == "Cube":
     points = tf.constant(init_cube_, dtype=tf.float32)
     translate(points)
     rotate(option, points)
-        
-        
         
         
 if __name__ == '__main__':
