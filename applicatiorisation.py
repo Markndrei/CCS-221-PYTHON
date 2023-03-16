@@ -101,19 +101,19 @@ def image_load():
    
 def main () :
     st.title('This is Activity 3')
-    images = st.sidebar.file_uploader('Upload your files here', ['png', 'jpg', 'webp'], True)
+    files = st.sidebar.file_uploader('Upload your files here', ['png', 'jpg', 'webp'], True)
     option = st.sidebar.selectbox('What Image Manipulation Method to perform?', ('Translation', 'Rotation', 'Scaling', 'Shearing', 'Reflection'))
     st.write('The image manipulation you chose is:', option)
     
     if option == "Translation":
         st.write("Translation")
-        translation(images)
+        translation(files)
     if option == "Rotation":
         st.write("Rotation")
-        rotation(images)
+        rotation(files)
     if option == "Scaling":
         st.write("Scale")
-        scaling(images)
+        scaling(files)
     if option == "Shearing":
         x = st.sidebar.slider('x',0, 100, 1)
         st.write('Value of X:', x)
@@ -121,10 +121,10 @@ def main () :
         st.write('Value of Y:', y)
         st.sidebar.slider
         st.write("Shear")
-        shear(images,x,y)
+        shear(files,x,y)
     if option == "Reflection":
         st.write("Reflection")
-        reflection(images)
+        reflection(files)
     
     
 if __name__ == '__main__':
