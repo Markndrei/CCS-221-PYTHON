@@ -102,7 +102,6 @@ def image_load():
 def main () :
     st.title('This is Activity 3')
     files = st.sidebar.file_uploader('Upload your files here', ['png', 'jpg', 'webp'], True)
-    st.pyplot(files)
     option = st.sidebar.selectbox('What Image Manipulation Method to perform?', ('Translation', 'Rotation', 'Scaling', 'Shearing', 'Reflection'))
     st.write('The image manipulation you chose is:', option)
     
