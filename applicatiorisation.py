@@ -16,7 +16,7 @@ def translation(images):
  
     images = Image.open(images)
     images = np.asarray(images)
-    cols, rows = (image.shape[:2])
+    cols, rows = (images.shape[:2])
     translated_image = cv2.warpPerspective(images, m_translation_, (cols, rows))
     plt.axis('off')
     plt.imshow(translated_image)
