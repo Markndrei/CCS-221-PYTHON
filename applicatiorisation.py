@@ -16,7 +16,7 @@ def translation(images):
  
     images = Image.open(images)
     images = np.asarray(images)
-    cols, rows = (images.shape[:2])
+    cols, rows = images.shape[:2]
     translated_image = cv2.warpPerspective(images, m_translation_, (cols, rows))
     plt.axis('off')
     plt.imshow(translated_image)
@@ -34,7 +34,7 @@ def rotation(images):
     
     images = Image.open(images)
     images = np.asarray(images)
-    cols, rows = (images.shape[:2])
+    cols, rows = images.shape[:2]
     rotated_image = cv2.warpPerspective(images, m_rotation_, (int(cols), int(rows)))
     plt.axis('off')
     plt.imshow(rotated_image)
@@ -50,7 +50,7 @@ def scaling(images):
     
     images = Image.open(images)
     images = np.asarray(images)
-    cols, rows = (images.shape[:2])
+    cols, rows = images.shape[:2]
     scaled_image = cv2.warpPerspective(images, m_scaling_, (cols*2, rows*2))
     plt.axis('off')
     plt.imshow(scaled_image)
@@ -64,7 +64,7 @@ def shear(images,x,y):
    
     images = Image.open(images)
     images = np.asarray(images)
-    cols, rows = (images.shape[:2])
+    cols, rows = images.shape[:2]
     sheared_image = cv2.warpAffine(images, m_shearing_, (images.shape[1], images.shape[0]))
     plt.imshow(sheared_image)
     plt.show()
@@ -79,7 +79,7 @@ def reflection(images):
   
     images = Image.open(images)
     images = np.asarray(images)
-    cols, rows = (images.shape[:2])
+    cols, rows = images.shape[:2]
     
     reflected_image = cv2.warpPerspective(images, m_reflection_,(int(cols), int(rows)))
     plt.imshow(reflected_image)
@@ -102,6 +102,7 @@ def image_load():
 def main () :
     st.title('This is Activity 3')
     files = st.sidebar.file_uploader('Upload your files here', ['png', 'jpg', 'webp'], True)
+    st.pyplot(files)
     option = st.sidebar.selectbox('What Image Manipulation Method to perform?', ('Translation', 'Rotation', 'Scaling', 'Shearing', 'Reflection'))
     st.write('The image manipulation you chose is:', option)
     
