@@ -4,7 +4,7 @@ numpy
 tensorflow
 opencv-python-headless
 scipy
-PILLOW
+pillow
 
 
 
