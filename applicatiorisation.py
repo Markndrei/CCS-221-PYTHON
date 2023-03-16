@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 fig = plt.figure()
 
-def translation(i):
+def translation(images):
     
     #Translation
     m_translation_ = np.float32([[1, 0, 20],
