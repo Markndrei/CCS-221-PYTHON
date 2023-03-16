@@ -14,10 +14,9 @@ def translation(i):
                                  [0, 0, 1]])
     
  
-    image = cv2.imread(path + str(i) + png)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    images = Image.open(images)
+    images = np.asarray(images)
     cols, rows = (image.shape[:2])
-
     translated_image = cv2.warpPerspective(image, m_translation_, (cols, rows))
     plt.axis('off')
     plt.imshow(translated_image)
@@ -32,6 +31,10 @@ def rotation(images):
                               [np.sin(angle), np.cos(angle), 0],
                               [0, 0, 1]])
     
+    
+    images = Image.open(images)
+    images = np.asarray(images)
+    cols, rows = (image.shape[:2])
     rotated_image = cv2.warpPerspective(images, m_rotation_, (int(cols), int(rows)))
     plt.axis('off')
     plt.imshow(rotated_image)
@@ -44,7 +47,10 @@ def scaling(images):
     m_scaling_ = np.float32([[1.5, 0, 0],
                              [0, 1.8, 0],
                              [0, 0, 1]])
-
+    
+    images = Image.open(images)
+    images = np.asarray(images)
+    cols, rows = (image.shape[:2])
     scaled_image = cv2.warpPerspective(images, m_scaling_, (cols*2, rows*2))
     plt.axis('off')
     plt.imshow(scaled_image)
@@ -56,6 +62,9 @@ def shear(images,x,y):
     m_shearing_ = np.float32([[1, x, 0],
                                [y, 1, 0]])
    
+    images = Image.open(images)
+    images = np.asarray(images)
+    cols, rows = (image.shape[:2])
     sheared_image = cv2.warpAffine(images, m_shearing_, (images.shape[1], images.shape[0]))
     plt.imshow(sheared_image)
     plt.show()
@@ -68,7 +77,10 @@ def reflection(images):
                                 [0, 0, 1]])
     
   
-
+    images = Image.open(images)
+    images = np.asarray(images)
+    cols, rows = (image.shape[:2])
+    
     reflected_image = cv2.warpPerspective(images, m_reflection_,(int(cols), int(rows)))
     plt.imshow(reflected_image)
     plt.show()
@@ -90,8 +102,6 @@ def image_load():
 def main () :
     st.title('This is Activity 3')
     images = st.sidebar.file_uploader('Upload your files here', ['png', 'jpg', 'webp'], True)
-    images = Image.open(images)
-    images = np.asarray(images)
     option = st.sidebar.selectbox('What Image Manipulation Method to perform?', ('Translation', 'Rotation', 'Scaling', 'Shearing', 'Reflection'))
     st.write('The image manipulation you chose is:', option)
     
