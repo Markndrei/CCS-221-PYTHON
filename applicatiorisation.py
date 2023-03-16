@@ -115,9 +115,9 @@ def main () :
         st.write("Scale")
         scaling(files)
     if option == "Shearing":
-        x = st.sidebar.slider('x',0, 100, 1)
+        x = st.sidebar.slider('x',0, 100)
         st.write('Value of X:', x)
-        y = st.sidebar.slider('y',0, 100, 1)
+        y = st.sidebar.slider('y',0, 100)
         st.write('Value of Y:', y)
         st.sidebar.slider
         st.write("Shear")
