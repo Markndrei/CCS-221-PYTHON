@@ -1,159 +1,157 @@
 import streamlit as st
 import numpy as np
-import cv2
 import matplotlib.pyplot as plt
-from PIL import Image
+import altair as alt
 
-st.title("Activity 3")
-# Reading of Image
-fig = plt.figure()
 
-def translation(x,y,img_):
-    
-    #Translation
-    m_translation_ = np.float32([[1, 0, x],
-                                 [0, 1, y],
-                                 [0, 0, 1]])
-    
-    
-    img_ = Image.open(img_)
-    img_ = np.asarray(img_)
-    cols, rows = img_.shape[:2] 
-    translated_image = cv2.warpPerspective(img_, m_translation_, (int(cols), int(rows)))
-    
-    plt.axis('off')
-    plt.imshow(translated_image)
-    plt.show()
+
+def DDALine(x1, y1, x2, y2, color):
+    dx = y2 - x1
+    dy = y2 - y1
+    mpx = (x1 + x2) / 2         #midpoint
+    mpy = (y1 + y2) / 2         #midpoint
+
+    steps = abs(dx) if abs(dx) > abs(dy) else abs(dy)
+
+    Xinc = float(dx/steps)
+    Yinc = float(dy/steps)
+
+    fig = plt.figure()
+    for i in range(0, int(steps +1)):
+            plt.plot(int(x1), int(y1), color)
+            x1 += Xinc
+            y1 += Yinc
+            
+
+    st.write('[DDA Line] Midpoint of the line is (x,y): ', mpx, mpy)
+
+    plt.show() 
     st.pyplot(fig)
 
-def rotation(angle, img_):
-    
-    # Rotation
-    angle = np.radians(angle)
-    m_rotation_ = np.float32([[np.cos(angle), -(np.sin(angle)), 0],
-                              [np.sin(angle), np.cos(angle), 0],
-                              [0, 0, 1]])
-    
+        
+
+
+
+
+def bresenham(x1, y1, x2, y2, color): 
    
-    img_ = Image.open(img_)
-    img_ = np.asarray(img_)
-    cols, rows = img_.shape[:2] 
+ 
+    dx = abs(x2 - x1) #change in x / delta x
+    dy = abs(y2 - y1) #change in y / delta y
+    mpx = (x1 + x2) / 2 #x midpoint
+    mpy = (y1 + y2) / 2 #y midpoint
 
-    rotated_img_ = cv2.warpPerspective(img_, m_rotation_, (int(cols), int(rows)))
-    plt.axis('off')
-    plt.imshow(rotated_img_)
-    plt.show()
-    st.pyplot(fig)
+    slope = dy/float(dx) #slope
     
-def scaling(img_,xs,ys):
+    if slope > 1:
+        dx, dy = dy, dx
+        x1, y1 = y1, x1
+        x2 ,y2 = y2, x2
+
+    pk = 2 * dy - dx #decision parameter
     
-    # Scaling
-    
-    m_scaling_ = np.float32([[xs, 0, 0],
-                             [0, ys, 0],
-                             [0, 0, 1]])
-    
+    xcoords = [x1] #x-coordinates
+    ycoords =[y1] #y-coordinates
    
-    img_ = Image.open(img_)
-    img_ = np.asarray(img_)
-    cols, rows = img_.shape[:2] 
+    fig2=plt.figure()
+    for x in range(2,dx):
+        
+        if pk > 0: #case 2 [decision parameter satisfied] 
+            y1 = y1 + 1 if y1 < y2 else y1 - 1
+            pk = pk + 2 * (dy - dx)
+            
+        else : #otherwise
+            pk = pk + 2 * dy
+        
+        
+        x1 = x1 + 1 if x1 < x2 else x1 - 1
+        
+        
+        xcoords.append(x1)
+        ycoords.append(y1)
 
-    scaled_img_ = cv2.warpPerspective(img_, m_scaling_, (cols*2, rows*2))
-    plt.axis('off')
-    plt.imshow(scaled_img_)
+    st.write('[Bresenhams Line] Midpoint of the Line is (x,y): ', mpx, mpy)
+
+
+    plt.plot(xcoords,ycoords)
+    plt.show() 
+    st.pyplot(fig2)
+    
+    
+    
+    
+    
+    
+def midpoint(x1, y1, x2, y2, color): 
+   
+    x, y = x1, y1
+    dx = abs(x2 - x1)
+    dy = abs(y2 - y1)
+    x3 = (x1 + x2) / 2
+    y3 = (y1 + y2) / 2
+
+    slope = dy/float(dx)
+    
+    if slope > 1:
+        dx, dy = dy, dx
+        x, y = y, x
+        x1, y1 = y1, x1
+        x2 ,y2 = y2, x2
+
+    p = 2 * dy - dx
+    
+    xcords = [x]
+    ycords =[y]
+   
+    fig3=plt.figure()
+    for k in range(2,dx):
+        if p > 0:
+            y = y + 1 if y < y2 else y - 1
+            p = p + 2 * (dy - dx)
+        else :
+            p = p + 2 * dy
+        
+        x = x + 1 if x < x2 else x - 1
+        
+        xcords.append(x)
+        ycords.append(y)
+
+    st.write('Midpoint of the line is:', x3)
+    plt.plot(xcords,ycords,x3,y3,marker="o",markersize=5,markerfacecolor="red")
     plt.show()
-    st.pyplot(fig)
-    
-def shear(img_,shearsize):
-    
-    # Shearing
-    m_shearing_x = np.float32([[1, shearsize, 0],
-                               [0, 1, 0],
-                               [0, 0, 1]])
+    st.pyplot(fig3)
     
     
-    img_ = Image.open(img_)
-    img_ = np.asarray(img_)
-    cols, rows = img_.shape[:2]
+    
 
-    sheared_img_x = cv2.warpPerspective(img_,m_shearing_x,(int(cols*1.5), int(rows*1.5)))
-    plt.axis('off')
-    plt.imshow(sheared_img_x)
-    plt.show()
-    st.pyplot(fig)
+def main(): 
+    st.title("This is Activity 1")
+    option = st.sidebar.selectbox('What Type of Line to Perform?', ('DDA Line', 'Bresenham', 'Midpoint'))
+    st.write('The type of line you chose is:', option)
 
-def reflection(img_):
-    
-    # Reflection
-    
-    img_ = Image.open(img_)
-    img_ = np.asarray(img_)
-    cols, rows = img_.shape[:2]
-    
-    st.sidebar.write('Reflection Choices')    
-    choice = st.sidebar.selectbox('Image Position', ('Original', 'Flip Y', 'Flip X'))
-    
-    if choice == "Original":
-        m_reflection_ = np.float32([[1, 0, 0],
-                                    [0, 1, 0],
-                                    [0, 0, 1]])
-        
-        
-    elif choice == "Flip Y":
-        m_reflection_ = np.float32([[1, 0, 0],
-                                    [0, -1, rows],
-                                    [0, 0, 1]])
+    if option == "DDALine":
+        DDALine(x, y, xEnd, yEnd, color)
 
-        
-    elif choice == "Flip X":
-        m_reflection_ = np.float32([[-1, 0, cols],
-                                    [0, 1, 0],
-                                    [0, 0, 1]])
-        
-        
-    reflected_img_ = cv2.warpPerspective(img_, m_reflection_,(int(cols), int(rows)))
-    plt.axis('off')
-    plt.imshow(reflected_img_)
-    plt.show()
-    st.pyplot(fig)
+    if option == "bresenham":
+        bresenham(x, y,xEnd, yEnd, color) # call for Bresenham's Line function
+
+    if option == "midpoint":
+        midpoint(x, y, xEnd, yEnd, color)
+        plt.show()      
+         
+    x = st.sidebar.slider('X1', 1, 1000)
+    st.write('Value of X1: ', x)
+
+    y = st.sidebar.slider('Y1', 1, 1000)
+    st.write('Value of Y1: ', y)
+
+    xEnd = st.sidebar.slider('X2',0, 1000)
+    st.write('Value of X2: ', xEnd)
+
+    yEnd = st.sidebar.slider('Y2', 0, 1000)
+    st.write('Value of Y2: ', yEnd)
+    color = "b." 
 
 
-def main():
-    
-    method = st.sidebar.multiselect('Choose Transformation Method', ['Translation', 'Rotation', 'Scale', 'Shear', 'Reflection'])
-    uploaded = st.file_uploader('Upload Image to Use', ['jpg'], accept_multiple_files=False)
-    st.sidebar.title('ACT 3 - Controls')
-    
-    if 'Translation' in method:
-        st.sidebar.write('Translation Controls')
-        x = st.sidebar.slider('X Translation', -100, 500, 1)
-        y = st.sidebar.slider('Y Translation', -100, 500, 1)
-        st.write("Translation")
-        translation(x,y,uploaded)
-    
-    if 'Rotation' in method:
-        st.sidebar.write('Rotation Controls')
-        angle = st.sidebar.slider('Rotation Size', -100, 500, 1)
-        st.write("Rotation")
-        rotation(angle,uploaded)
-        
-    if 'Scale' in method:
-        st.sidebar.write('Scale Controls')
-        xs = float(st.sidebar.slider('X Translation', 0.0, 5.0, 0.000001))
-        ys = float(st.sidebar.slider('Y Translation', 0.0, 5.0, 0.000001))
-        st.write("Scale")
-        scaling(uploaded,xs,ys)
-    
-    if 'Shear' in method:
-        st.sidebar.write('Shear Controls')
-        shearsize = st.sidebar.slider('Shear Size', 0.0, 5.0, 0.000001)
-        st.write("Shear")
-        shear(uploaded, shearsize)
-    
-    if 'Reflection' in method:
-        st.write("Reflection")
-        reflection(uploaded)
-    
-    
 if __name__ == '__main__':
-    main()
+    main()    
